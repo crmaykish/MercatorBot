@@ -1,5 +1,4 @@
 #MercatorBot
----
 
 MercatorBot is my exploration and environment-mapping robot. Ultimately, it will be able to perform the following tasks autonomously:
 - Explore and map indoors and out
