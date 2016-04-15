@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Robit Control Panel</title>
+		<style>
+			#map
+			{
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Robit Control Panel</h1>
+
+		<canvas id="map" width="800" height="800"></canvas>
+
+		<div id="status"></div>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			var socket = io();
+
+			var canv_width = $("#map").width();
+			var canv_height = $("#map").height();
+
+			var c = $("#map").get(0);
+			var ctx = c.getContext("2d");
+			clearCanvas(ctx);
+
+			socket.on('chat message', function(msg){
+				var t = "Front: " + msg.sensor1 + " | Back: " + msg.sensor3 + 
+					" | Left: " + msg.sensor4 + " | Right: " + msg.sensor2;
+				$("#status").html(t);
+
+				clearCanvas(ctx);
+
+				ctx.fillStyle = "#FF0376"
+				ctx.fillRect((canv_width - 80) / 2, ((canv_height - 60) / 2) - (msg.sensor1 * 10), 80, 5);
+
+				ctx.fillRect((canv_width - 80) / 2, ((canv_height + 60) / 2) + (msg.sensor3 * 10), 80, 5);
+
+				ctx.fillRect(((canv_width - 80) / 2) - 5 - (msg.sensor4 * 10), (canv_height - 60) / 2, 5, 60);
+
+				ctx.fillRect(((canv_width + 80) / 2) + (msg.sensor2 * 10), (canv_height - 60) / 2, 5, 60);
+
+			});
+
+			function clearCanvas(ctx) {
+				ctx.fillStyle = "#FFFFFF";
+				ctx.fillRect(0, 0, canv_width, canv_height);
+				ctx.fillStyle = "#0045CC";
+				ctx.fillRect((canv_width - 80) / 2, (canv_height - 60) / 2, 80, 60);
+			}
+
+		</script>
+	</body>
+</html>
