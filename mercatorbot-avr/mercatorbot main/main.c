@@ -1,28 +1,30 @@
 #define F_CPU 16000000UL
 
-#include "serial.h"
-#include "analog.h"
 #include "bitmacros.h"
+#include "serial.h"
 #include <avr/io.h>
+#include <stdio.h>
 #include <util/delay.h>
 
 #define LED PD6
 #define SWITCH PD7
 #define POT PA7
 
+int num = 0;
+
 void setup() {
 	// Set up digital IO
 	setBit(DDRD, LED);
 	clearBit(DDRD, SWITCH);
 
-	analogInit();
 	serialInit();
+	stdout = &uartOut;
 }
 
 void loop() {
-	serialTrasmitInt(100);
-	serialTransmit('\n');
-	_delay_ms(400);
+	printf("hello %d \n", num);
+	num++;
+	_delay_ms(300);
 }
 
 int main(void) {

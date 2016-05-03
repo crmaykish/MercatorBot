@@ -1,6 +1,8 @@
-#include "serial.h"
+// Reference: http://www.appelsiini.net/2011/simple-usart-with-avr-libc
+
 #include "bitmacros.h"
 #include <avr/io.h>
+#include <stdio.h>
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
@@ -12,7 +14,7 @@
 
 #define MYUBRR ((F_CPU / 16 / BAUD) - 1)
 
-void serialInit(int baud) {
+void serialInit() {
 	// Set baud rate
 	UBRR0H = (unsigned char) (MYUBRR >> 8);
 	UBRR0L = (unsigned char) MYUBRR;
@@ -24,25 +26,11 @@ void serialInit(int baud) {
 	UCSR0C = bitValue(USBS0) | (3 << UCSZ00);
 }
 
-void serialTransmit(char b) {
+void serialTransmit(char b, FILE *stream) {
 	while (!(UCSR0A & bitValue(UDRE0)));
 	UDR0 = b;
-}
 
-void serialTransmitString(char b[]) {
-	int i = 0;
-	while (b[i] != '\0') {
-		serialTransmit(b[i]);
-		i++;
-	}
-}
-
-// broken
-void serialTrasmitInt(int b) {
-	while (b > 0) {
-		int n = b % 10;
-		char c = '0' + n;
-		serialTransmit(c);
-		b = b / 10;
+	if (b == '\n') {
+		serialTransmit('\r', stream);
 	}
 }
