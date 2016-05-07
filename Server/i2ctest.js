@@ -1,7 +1,12 @@
 var i2c = require('i2c-bus'), i2c1 = i2c.openSync(1);
 
+const ADDR = 0x04;
+
 (function() {
-	i2c1.sendByteSync(0x04, 5);
-	console.log("yup");
+	console.log("Starting");
+	for (var i = 0; i < 10; i++) {
+		i2c1.sendByteSync(ADDR, 5);	
+	}
 	i2c1.closeSync();
+	console.log("Done");
 }());
