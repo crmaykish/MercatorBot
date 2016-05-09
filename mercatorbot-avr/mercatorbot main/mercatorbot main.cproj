@@ -151,6 +151,9 @@
     <Compile Include="nrf24l01.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="nrf24l01.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="serial.c">
       <SubType>compile</SubType>
     </Compile>
