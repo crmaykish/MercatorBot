@@ -5,6 +5,7 @@
 
 void serialInit();
 void serialTransmit(char b, FILE *stream);
+// TODO: serialReceive function
 
 FILE uartOut = FDEV_SETUP_STREAM(serialTransmit, NULL, _FDEV_SETUP_WRITE);
 
