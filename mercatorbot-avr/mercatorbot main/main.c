@@ -1,6 +1,7 @@
 #define F_CPU 16000000UL
 
 #include "bitmacros.h"
+#include "robot.h"
 #include "serial.h"
 #include "analog.h"
 #include <avr/io.h>
@@ -18,7 +19,7 @@ void setup() {
 }
 
 void loop() {
-	printf("Hello %d\n", counter);
+	printf("Hello, Robo! %d\n", counter);
 	counter++;
 	_delay_ms(1000);
 }

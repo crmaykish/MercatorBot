@@ -154,10 +154,19 @@
     <Compile Include="nrf24l01.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="robot.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="serial.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="serial.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasonic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ultrasonic.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
