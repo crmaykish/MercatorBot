@@ -4,6 +4,7 @@
 #include "robot.h"
 #include "serial.h"
 #include "analog.h"
+#include "ultrasonic.h"
 #include <avr/io.h>
 #include <stdio.h>
 #include <util/delay.h>
@@ -16,10 +17,15 @@ void setup() {
 
 	// Redirect stdout to the UART
 	stdout = &uartOut;
+
+	ultrasonicInit();
 }
 
 void loop() {
 	printf("Hello, Robo! %d\n", counter);
+	setBit(PORTC, TRIG3);
+	_delay_us(12);
+	clearBit(PORTC, TRIG3);
 	counter++;
 	_delay_ms(1000);
 }
